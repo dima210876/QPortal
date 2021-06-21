@@ -1,0 +1,183 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet id="1.0.0" author="dmitriy">
+        <createTable tableName="users">
+
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="email" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="password" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="first_name" type="VARCHAR(50)"/>
+
+            <column name="last_name" type="VARCHAR(50)"/>
+
+            <column name="phone" type="VARCHAR(20)"/>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.1" author="dmitriy">
+        <createTable tableName="questionnaires">
+
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="user_id" type="INTEGER">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.2" author="dmitriy">
+        <createTable tableName="fields">
+
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="questionnaire_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="label" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="type" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="required" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="isactive" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.3" author="dmitriy">
+        <createTable tableName="options">
+
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="field_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.4" author="dmitriy">
+        <createTable tableName="responses">
+
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="questionnaire_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.5" author="dmitriy">
+        <createTable tableName="responses_fields">
+
+            <column name="response_id" type="INTEGER">
+                <constraints primaryKey="true" primaryKeyName="pk_resp_fields" nullable="false"/>
+            </column>
+
+            <column name="field_id" type="INTEGER">
+                <constraints primaryKey="true" primaryKeyName="pk_resp_fields" nullable="false"/>
+            </column>
+
+            <column name="value" type="VARCHAR(100)"/>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.6" author="dmitriy">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="questionnaires"
+                                 constraintName="fk_quest_user"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet id="1.0.7" author="dmitriy">
+        <addForeignKeyConstraint baseColumnNames="questionnaire_id"
+                                 baseTableName="fields"
+                                 constraintName="fk_field_quest"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="questionnaires"/>
+    </changeSet>
+
+    <changeSet id="1.0.8" author="dmitriy">
+        <addForeignKeyConstraint baseColumnNames="field_id"
+                                 baseTableName="options"
+                                 constraintName="fk_opt_field"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fields"/>
+    </changeSet>
+
+    <changeSet id="1.0.9" author="dmitriy">
+        <addForeignKeyConstraint baseColumnNames="questionnaire_id"
+                                 baseTableName="responses"
+                                 constraintName="fk_resp_quest"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="questionnaires"/>
+    </changeSet>
+
+    <changeSet id="1.0.10" author="dmitriy">
+        <addForeignKeyConstraint baseColumnNames="response_id"
+                                 baseTableName="responses_fields"
+                                 constraintName="fk_respfield_resp"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="responses"/>
+    </changeSet>
+
+    <changeSet id="1.0.11" author="dmitriy">
+        <addForeignKeyConstraint baseColumnNames="field_id"
+                                 baseTableName="responses_fields"
+                                 constraintName="fk_respfield_field"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fields"/>
+    </changeSet>
+</databaseChangeLog>
+

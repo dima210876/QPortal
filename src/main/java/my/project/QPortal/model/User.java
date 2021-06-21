@@ -1,6 +1,8 @@
 package my.project.QPortal.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
@@ -10,19 +12,23 @@ public class User
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "email", length = 50, nullable = false)
+    @NotNull
+    @NotBlank
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "password", length = 50, nullable = false)
+    @NotNull
+    @NotBlank
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "firstname", length = 50)
+    @Column(name = "firstname")
     private String firstname;
 
-    @Column(name = "lastname", length = 50)
+    @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "phone", length = 20)
+    @Column(name = "phone")
     private String phone;
 
     public int getId() { return id; }
@@ -56,6 +62,12 @@ public class User
         if (!firstname.isEmpty() && !firstname.isBlank()) this.firstname = firstname;
         if (!lastname.isEmpty() && !lastname.isBlank()) this.lastname = lastname;
         if (!phone.isEmpty() && !phone.isBlank()) this.phone = phone;
+    }
+
+    public User(String email, String password)
+    {
+        this.email = email;
+        this.password = password;
     }
 
     public User(User user)

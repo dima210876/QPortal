@@ -1,7 +1,10 @@
 package my.project.QPortal.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
+
 
 @Entity
 @Table(name = "fields")
@@ -11,23 +14,40 @@ public class Field
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "label", length = 50, nullable = false)
+    @NotNull
+    @NotBlank
+    @Column(name = "questionnaire_id")
+    private String questionnaire_id;
+
+    @NotNull
+    @NotBlank
+    @Column(name = "label")
     private String label;
 
-    @Column(name = "type", length = 50, nullable = false)
+    @NotNull
+    @NotBlank
+    @Column(name = "type")
     private String type;
 
-    @Column(name = "required", nullable = false)
+    @NotNull
+    @NotBlank
+    @Column(name = "required")
     private boolean required;
 
-    @Column(name = "isActive", nullable = false)
-    private boolean isActive;
+    @NotNull
+    @NotBlank
+    @Column(name = "isactive")
+    private boolean isactive;
 
     @OneToMany
     @JoinColumn(name = "field_id")
     private List<Option> options;
 
     public int getId() { return id; }
+
+    public String getQuestionnaire_id() { return questionnaire_id; }
+
+    public void setQuestionnaire_id(String questionnaire_id) { this.questionnaire_id = questionnaire_id; }
 
     public String getLabel() { return label; }
 
@@ -37,24 +57,26 @@ public class Field
 
     public void setType(String type) { this.type = type; }
 
-    public boolean isRequired() { return required; }
+    public boolean getRequired() { return required; }
 
     public void setRequired(boolean required) { this.required = required; }
 
-    public boolean isActive() { return isActive; }
+    public boolean getIsactive() { return isactive; }
 
-    public void setActive(boolean active) { isActive = active; }
+    public void setIsactive(boolean isactive) { this.isactive = isactive; }
 
     public List<Option> getOptions() { return options; }
+
+    public void setOptions(List<Option> options) { this.options = options; }
 
     public Field() { }
 
     public Field(String label, String type, boolean required, boolean isActive)
     {
-        if (!label.isEmpty() && !label.isBlank()) this.label = label;
-        if (!type.isEmpty() && !type.isBlank()) this.type = type;
+        this.label = label;
+        this.type = type;
         this.required = required;
-        this.isActive = isActive;
+        this.isactive = isActive;
     }
 
     public Field(Field field)
@@ -63,6 +85,6 @@ public class Field
         this.label = field.label;
         this.type = field.type;
         this.required = field.required;
-        this.isActive = field.isActive;
+        this.isactive = field.isactive;
     }
 }
