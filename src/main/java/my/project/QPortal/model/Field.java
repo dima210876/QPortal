@@ -3,21 +3,21 @@ package my.project.QPortal.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
 
 @Entity
 @Table(name = "fields")
-public class Field
+public class Field implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
-    @NotBlank
     @Column(name = "questionnaire_id")
-    private String questionnaire_id;
+    private int questionnaire_id;
 
     @NotNull
     @NotBlank
@@ -30,24 +30,22 @@ public class Field
     private String type;
 
     @NotNull
-    @NotBlank
     @Column(name = "required")
     private boolean required;
 
     @NotNull
-    @NotBlank
     @Column(name = "isactive")
     private boolean isactive;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "field_id")
     private List<Option> options;
 
     public int getId() { return id; }
 
-    public String getQuestionnaire_id() { return questionnaire_id; }
+    public int getQuestionnaire_id() { return questionnaire_id; }
 
-    public void setQuestionnaire_id(String questionnaire_id) { this.questionnaire_id = questionnaire_id; }
+    public void setQuestionnaire_id(int questionnaire_id) { this.questionnaire_id = questionnaire_id; }
 
     public String getLabel() { return label; }
 

@@ -3,24 +3,26 @@ package my.project.QPortal.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "responses")
-public class Response
+public class Response implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
-    @NotBlank
     @Column(name = "questionnaire_id")
     private int questionnaire_id;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "response_id")
     private List<ResponseField> responseFields;
+
+    public int getId() { return id; }
 
     public int getQuestionnaire_id() { return questionnaire_id; }
 

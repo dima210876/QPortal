@@ -3,21 +3,20 @@ package my.project.QPortal.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @IdClass(ResponseFieldId.class)
 @Table(name = "responses_fields")
-public class ResponseField
+public class ResponseField implements Serializable
 {
     @Id
     @NotNull
-    @NotBlank
     @Column(name = "response_id")
     private int response_id;
 
     @Id
     @NotNull
-    @NotBlank
     @Column(name = "field_id")
     private int field_id;
 
