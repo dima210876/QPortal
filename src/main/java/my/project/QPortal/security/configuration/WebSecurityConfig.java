@@ -36,7 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
                     .anyRequest()
                         .authenticated()
                     .and()
-                .httpBasic();
+                .httpBasic()
+                    .and()
+                .logout()
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID");
     }
 
     @Override

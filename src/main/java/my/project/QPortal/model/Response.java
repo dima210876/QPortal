@@ -1,7 +1,6 @@
 package my.project.QPortal.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
@@ -18,7 +17,7 @@ public class Response implements Serializable
     @Column(name = "questionnaire_id")
     private int questionnaire_id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "response_id")
     private List<ResponseField> responseFields;
 

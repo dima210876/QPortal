@@ -1,8 +1,6 @@
 package my.project.QPortal.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -25,7 +23,7 @@ public class Option implements Serializable
 
     public String getName() { return name; }
 
-    public void setField_id(int field_id) { this.field_id = field_id; }
+    public void setField_id(int fieldId) { this.field_id = fieldId; }
 
     public void setName(String name) { this.name = name; }
 

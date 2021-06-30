@@ -12,11 +12,11 @@ public class Questionnaire implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "questionnaire_id")
     private List<Field> fields;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "questionnaire_id")
     private List<Response> responses;
 
@@ -31,6 +31,4 @@ public class Questionnaire implements Serializable
     public void setResponses(List<Response> responses) { this.responses = responses; }
 
     public Questionnaire() { }
-
-
 }

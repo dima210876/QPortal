@@ -37,7 +37,7 @@ public class Field implements Serializable
     @Column(name = "isactive")
     private boolean isactive;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "field_id")
     private List<Option> options;
 
@@ -69,17 +69,25 @@ public class Field implements Serializable
 
     public Field() { }
 
-    public Field(String label, String type, boolean required, boolean isActive)
+    public Field(int id,
+                 int questionnaire_id,
+                 String label,
+                 String type,
+                 boolean required,
+                 boolean isactive)
     {
+        this.id = id;
+        this.questionnaire_id = questionnaire_id;
         this.label = label;
         this.type = type;
         this.required = required;
-        this.isactive = isActive;
+        this.isactive = isactive;
     }
 
     public Field(Field field)
     {
         this.id = field.id;
+        this.questionnaire_id = field.questionnaire_id;
         this.label = field.label;
         this.type = field.type;
         this.required = field.required;
